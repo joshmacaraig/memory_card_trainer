@@ -38,9 +38,15 @@ const MetronomeControl = () => {
                 img.onload = () => {
                     loadedImages++;
                     setLoadingProgress(Math.round((loadedImages / totalCards) * 100));
+                    if (loadedImages === totalCards) {
+                        setImagesLoaded(true); // Ensure this is set only after all images are loaded
+                    }
                     resolve();
                 };
-                img.onerror = reject;
+                img.onerror = () => {
+                    console.error(`Failed to load image: ${image}`);
+                    reject();
+                };
             });
         });
 
