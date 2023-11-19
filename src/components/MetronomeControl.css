@@ -1,0 +1,42 @@
+.metronome-control {
+    text-align: center;
+}
+
+.start-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 250px;
+    height: 250px;
+    font-size: 80px;
+    margin-top: 150px;
+}
+
+.countdown {
+    font-size: 80px;
+    margin: 20px 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings {
+    margin-top: 20px;
+}
+
+
+.mute-icon {
+    cursor: pointer;
+    font-size: 20px; /* Adjust size as needed */
+    margin: 10px;
+    position: absolute;
+    top: 10px;
+}
+
+.main-content{
+    margin-top: 25px;
+}
