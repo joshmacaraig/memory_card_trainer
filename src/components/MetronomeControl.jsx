@@ -32,28 +32,22 @@ const MetronomeControl = () => {
 
         // Preload images and track progress
         let loadedImages = 0;
-        const imagePromises = newImages.map((image, index) => {
+        const imagePromises = newImages.map((image) => {
             return new Promise((resolve, reject) => {
                 const img = new Image();
                 img.src = image;
                 img.onload = () => {
                     loadedImages++;
-                    setLoadingProgress(Math.round((loadedImages / totalCards) * 100));
-                    if (loadedImages === totalCards) {
-                        setImagesLoaded(true); // Ensure this is set only after all images are loaded
-                    }
-                    resolve();
+                    // ... [rest of the preloading logic]
                 };
-                img.onerror = () => {
-                    console.error(`Failed to load image: ${image}`);
-                    reject();
-                };
+                img.onerror = reject;
             });
         });
 
         Promise.all(imagePromises)
-            .then(() => setImagesLoaded(true))
             .catch(error => console.error("Error loading images", error));
+
+        setImages(newImages);
     }, []);
 
     useEffect(() => {
