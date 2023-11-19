@@ -17,7 +17,7 @@ const MetronomeControl = () => {
     const [isMuted, setIsMuted] = useState(false);
     const totalCards = 52;
     const beatSound = new Audio('/sounds/metronome-85688.mp3');
-    const [showImage, setShowImage] = useState(false);
+    const [loadedImageCount, setLoadedImageCount] = useState(0);
 
     useEffect(() => {
         const suits = ['clubs', 'diamonds', 'hearts', 'spades'];
@@ -28,34 +28,29 @@ const MetronomeControl = () => {
         );
 
         newImages.sort(() => Math.random() - 0.5);
-        setImages(newImages);
 
-        // Preload images and track progress
-        let loadedImages = 0;
-        const imagePromises = newImages.map((image) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = image;
-                img.onload = () => {
-                    loadedImages++;
-                    // ... [rest of the preloading logic]
-                };
-                img.onerror = reject;
-            });
+        newImages.forEach(imageSrc => {
+            const img = new Image();
+            img.src = imageSrc;
+            img.onload = () => {
+                setLoadedImageCount(prevCount => prevCount + 1);
+            };
         });
-
-        Promise.all(imagePromises)
-            .catch(error => console.error("Error loading images", error));
 
         setImages(newImages);
     }, []);
+
+    useEffect(() => {
+        if (loadedImageCount === totalCards) {
+            setImagesLoaded(true);
+        }
+    }, [loadedImageCount]);
 
     useEffect(() => {
         if (isPreparing) {
             if (countdown > 0) {
                 setTimeout(() => setCountdown(countdown - 1), 1000);
             } else {
-                setShowImage(true);
                 setIsRunning(true);
                 setIsPreparing(false);
             }
@@ -97,7 +92,7 @@ const MetronomeControl = () => {
     return (
         <div className="metronome-control">
             {!imagesLoaded && (
-                <div>Loading images... {loadingProgress}%</div>
+                <div>Loading images... {Math.round((loadedImageCount / totalCards) * 100)}%</div>
             )}
 
             {imagesLoaded && (
