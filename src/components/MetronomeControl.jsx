@@ -14,7 +14,7 @@ const MetronomeControl = () => {
     const [images, setImages] = useState([]);
     const [showImage, setShowImage] = useState(false); // State to control image visibility
     const totalCards = 52;
-    const beatSound = new Audio('../../public/sounds/metronome-85688.mp3');
+    const beatSound = new Audio('/sounds/metronome-85688.mp3');
     const [isMuted, setIsMuted] = useState(false); // State for sound mute control
 
     useEffect(() => {
