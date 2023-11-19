@@ -13,11 +13,11 @@ const MetronomeControl = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [images, setImages] = useState([]);
     const [imagesLoaded, setImagesLoaded] = useState(false);
-    const [loadingProgress, setLoadingProgress] = useState(0);
+    const [loadedImageCount, setLoadedImageCount] = useState(0);
     const [isMuted, setIsMuted] = useState(false);
     const totalCards = 52;
     const beatSound = new Audio('/sounds/metronome-85688.mp3');
-    const [loadedImageCount, setLoadedImageCount] = useState(0);
+    const [showImage, setShowImage] = useState(false);
 
     useEffect(() => {
         const suits = ['clubs', 'diamonds', 'hearts', 'spades'];
@@ -51,6 +51,7 @@ const MetronomeControl = () => {
             if (countdown > 0) {
                 setTimeout(() => setCountdown(countdown - 1), 1000);
             } else {
+                setShowImage(true);
                 setIsRunning(true);
                 setIsPreparing(false);
             }
