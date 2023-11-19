@@ -22,8 +22,9 @@ const MetronomeControl = () => {
     useEffect(() => {
         const suits = ['clubs', 'diamonds', 'hearts', 'spades'];
         const values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king'];
+
         let newImages = suits.flatMap(suit => 
-            values.map(value => `/${value}_of_${suit}.png`)
+            values.map(value => `/images/${value}_of_${suit}.png`)
         );
 
         newImages.sort(() => Math.random() - 0.5);
