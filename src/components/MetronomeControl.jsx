@@ -17,6 +17,7 @@ const MetronomeControl = () => {
     const [isMuted, setIsMuted] = useState(false);
     const totalCards = 52;
     const beatSound = new Audio('/sounds/metronome-85688.mp3');
+    const [showImage, setShowImage] = useState(false);
 
     useEffect(() => {
         const suits = ['clubs', 'diamonds', 'hearts', 'spades'];
@@ -53,6 +54,7 @@ const MetronomeControl = () => {
             if (countdown > 0) {
                 setTimeout(() => setCountdown(countdown - 1), 1000);
             } else {
+                setShowImage(true);
                 setIsRunning(true);
                 setIsPreparing(false);
             }
